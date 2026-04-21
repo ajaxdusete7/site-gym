@@ -1,2 +1,412 @@
 # site-gym
 site de academia
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Barreira Team Fitness</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --yellow: #FFD600;
+    --black: #111111;
+    --blue: #0D2B6B;
+    --blue-light: #1A3F9A;
+    --white: #FFFFFF;
+  }
+  body { font-family: 'Barlow', sans-serif; background: var(--black); color: var(--white); overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    background: var(--black);
+    border-bottom: 3px solid var(--yellow);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--yellow); letter-spacing: 2px; }
+  .logo span { color: var(--white); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { color: var(--white); text-decoration: none; font-weight: 600; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--yellow); }
+  .btn-nav { background: var(--yellow); color: var(--black); padding: 0.5rem 1.4rem; border-radius: 4px; font-weight: 700; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; transition: opacity 0.2s; }
+  .btn-nav:hover { opacity: 0.85; color: var(--black); }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, var(--blue) 0%, var(--black) 60%);
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    padding: 4rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    right: -80px;
+    top: 50%;
+    transform: translateY(-50%) rotate(-15deg);
+    width: 500px;
+    height: 700px;
+    background: var(--yellow);
+    opacity: 0.07;
+    border-radius: 40px;
+  }
+  .hero-content { max-width: 680px; z-index: 1; }
+  .hero-tag { background: var(--yellow); color: var(--black); font-weight: 700; font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase; padding: 4px 12px; border-radius: 2px; display: inline-block; margin-bottom: 1.5rem; }
+  .hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 8vw, 6rem); line-height: 0.95; color: var(--white); margin-bottom: 0.5rem; }
+  .hero h1 span { color: var(--yellow); }
+  .hero-sub { font-size: 1.15rem; color: rgba(255,255,255,0.65); margin: 1.5rem 0 2.5rem; line-height: 1.7; max-width: 480px; }
+  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary { background: var(--yellow); color: var(--black); padding: 0.9rem 2rem; border-radius: 4px; font-weight: 700; font-size: 0.95rem; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; transition: transform 0.15s; display: inline-block; }
+  .btn-primary:hover { transform: translateY(-2px); }
+  .btn-outline { border: 2px solid rgba(255,255,255,0.3); color: var(--white); padding: 0.9rem 2rem; border-radius: 4px; font-weight: 600; font-size: 0.95rem; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; transition: border-color 0.2s; display: inline-block; }
+  .btn-outline:hover { border-color: var(--yellow); color: var(--yellow); }
+  .hero-stats { display: flex; gap: 3rem; margin-top: 4rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; }
+  .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: var(--yellow); }
+  .stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.5); letter-spacing: 1px; text-transform: uppercase; }
+
+  /* SERVICES */
+  .section { padding: 5rem 2rem; }
+  .section-tag { font-size: 0.75rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--yellow); margin-bottom: 0.75rem; }
+  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5vw, 3.5rem); color: var(--white); margin-bottom: 1rem; }
+  .section-subtitle { color: rgba(255,255,255,0.55); font-size: 1rem; max-width: 480px; line-height: 1.7; }
+
+  .services { background: var(--blue); }
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+  .service-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 2rem;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .service-card:hover { transform: translateY(-4px); border-color: var(--yellow); }
+  .service-icon { width: 52px; height: 52px; background: var(--yellow); border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; }
+  .service-icon svg { width: 28px; height: 28px; }
+  .service-card h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: var(--white); margin-bottom: 0.5rem; letter-spacing: 1px; }
+  .service-card p { color: rgba(255,255,255,0.55); font-size: 0.92rem; line-height: 1.65; }
+
+  /* HORÁRIOS */
+  .schedule { background: var(--black); }
+  .schedule-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 3rem; }
+  .day-card { background: #1a1a1a; border-radius: 8px; padding: 1.5rem; border-left: 4px solid var(--yellow); }
+  .day-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; color: var(--yellow); margin-bottom: 0.75rem; letter-spacing: 1px; }
+  .time-row { display: flex; justify-content: space-between; padding: 0.35rem 0; border-bottom: 1px solid rgba(255,255,255,0.07); font-size: 0.88rem; }
+  .time-row:last-child { border-bottom: none; }
+  .time-label { color: rgba(255,255,255,0.5); }
+  .time-val { color: var(--white); font-weight: 600; }
+
+  /* PLANOS */
+  .plans { background: var(--blue); }
+  .plans-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+  .plan-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 10px;
+    padding: 2rem;
+    text-align: center;
+    transition: transform 0.2s;
+    position: relative;
+  }
+  .plan-card.featured { border-color: var(--yellow); border-width: 2px; }
+  .plan-badge { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--yellow); color: var(--black); font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 4px 14px; border-radius: 20px; white-space: nowrap; }
+  .plan-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--white); letter-spacing: 1px; margin-bottom: 0.25rem; }
+  .plan-price { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: var(--yellow); line-height: 1; margin: 1rem 0; }
+  .plan-price span { font-size: 1.2rem; }
+  .plan-period { font-size: 0.8rem; color: rgba(255,255,255,0.45); margin-bottom: 1.5rem; }
+  .plan-features { list-style: none; text-align: left; margin-bottom: 2rem; }
+  .plan-features li { padding: 0.4rem 0; font-size: 0.9rem; color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 8px; }
+  .plan-features li::before { content: ''; width: 6px; height: 6px; background: var(--yellow); border-radius: 50%; flex-shrink: 0; }
+  .btn-plan { width: 100%; padding: 0.85rem; border-radius: 4px; font-weight: 700; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: opacity 0.2s; border: none; }
+  .btn-plan-primary { background: var(--yellow); color: var(--black); }
+  .btn-plan-outline { background: transparent; color: var(--white); border: 1.5px solid rgba(255,255,255,0.3) !important; border: none; }
+  .btn-plan:hover { opacity: 0.85; }
+
+  /* LOCALIZAÇÃO */
+  .location { background: var(--black); }
+  .location-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 3rem; align-items: start; }
+  .location-info { }
+  .info-item { display: flex; gap: 1rem; margin-bottom: 1.5rem; align-items: flex-start; }
+  .info-icon { width: 44px; height: 44px; background: var(--yellow); border-radius: 6px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+  .info-icon svg { width: 22px; height: 22px; }
+  .info-text strong { display: block; color: var(--white); font-weight: 600; margin-bottom: 2px; }
+  .info-text span { color: rgba(255,255,255,0.5); font-size: 0.9rem; line-height: 1.5; display: block; }
+  .map-placeholder { background: linear-gradient(135deg, var(--blue) 0%, #0a1e4a 100%); border-radius: 10px; height: 280px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.75rem; border: 1px solid rgba(255,255,255,0.1); }
+  .map-placeholder svg { width: 48px; height: 48px; opacity: 0.4; }
+  .map-placeholder p { color: rgba(255,255,255,0.4); font-size: 0.88rem; }
+  .map-placeholder a { color: var(--yellow); font-weight: 600; font-size: 0.9rem; text-decoration: none; }
+
+  /* FOOTER */
+  footer {
+    background: #0a0a0a;
+    border-top: 3px solid var(--yellow);
+    padding: 3rem 2rem 1.5rem;
+    text-align: center;
+  }
+  .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--yellow); letter-spacing: 2px; margin-bottom: 0.5rem; }
+  .footer-tagline { color: rgba(255,255,255,0.4); font-size: 0.85rem; margin-bottom: 2rem; }
+  .footer-social { display: flex; justify-content: center; gap: 1rem; margin-bottom: 2rem; }
+  .social-btn { width: 40px; height: 40px; border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.5); text-decoration: none; transition: border-color 0.2s, color 0.2s; }
+  .social-btn:hover { border-color: var(--yellow); color: var(--yellow); }
+  .footer-copy { color: rgba(255,255,255,0.25); font-size: 0.8rem; }
+
+  @media (max-width: 700px) {
+    .location-grid { grid-template-columns: 1fr; }
+    .hero-stats { gap: 1.5rem; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">BARREIRA <span>TEAM</span></div>
+  <ul class="nav-links">
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#horarios">Horários</a></li>
+    <li><a href="#planos">Planos</a></li>
+    <li><a href="#localizacao">Localização</a></li>
+  </ul>
+  <!-- Botão "Matricule-se" do menu navega para nosso WhatsApp -->
+  <a href="https://wa.me/5513988733145" target="_blank" rel="noopener noreferrer" class="btn-nav">Matricule-se</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <span class="hero-tag">Santos • SP</span>
+    <h1>QUEBRE<br>SEUS <span>LIMITES</span></h1>
+    <p class="hero-sub">Musculação de alto desempenho e artes marciais em Santos. Treinos que transformam corpo e mente — do iniciante ao atleta.</p>
+    <div class="hero-cta">
+      <a href="#planos" class="btn-primary">Ver Planos</a>
+      <a href="#servicos" class="btn-outline">Conheça a academia</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">500+</div>
+        <div class="stat-label">Alunos ativos</div>
+      </div>
+      <div>
+        <div class="stat-num">12</div>
+        <div class="stat-label">Anos de história</div>
+      </div>
+      <div>
+        <div class="stat-num">8</div>
+        <div class="stat-label">Professores</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVIÇOS -->
+<section class="section services" id="servicos">
+  <div class="section-tag">Modalidades</div>
+  <div class="section-title">O QUE OFERECEMOS</div>
+  <p class="section-subtitle">Programas completos pensados para cada objetivo, com professores especializados e equipamentos de qualidade.</p>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round">
+          <path d="M6 4v16M18 4v16M2 8h4M18 8h4M2 16h4M18 16h4M6 12h12"/>
+        </svg>
+      </div>
+      <h3>Musculação</h3>
+      <p>Sala equipada com aparelhos modernos e pesos livres. Treinos personalizados para ganho de massa, definição e condicionamento físico.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round">
+          <circle cx="12" cy="5" r="2"/>
+          <path d="M12 7v5l-3 3M12 12l3 3M8 20h8"/>
+        </svg>
+      </div>
+      <h3>Artes Marciais</h3>
+      <p>Aulas de luta com instrutores experientes. Defesa pessoal, condicionamento e disciplina — para iniciantes e praticantes avançados.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round">
+          <path d="M20 7H4a2 2 0 00-2 2v6a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/>
+          <path d="M12 7v10M8 12h8"/>
+        </svg>
+      </div>
+      <h3>Personal Trainer</h3>
+      <p>Acompanhamento individual com avaliação física completa e programação de treino exclusiva para acelerar seus resultados.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round">
+          <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
+        </svg>
+      </div>
+      <h3>Aulas em Grupo</h3>
+      <p>Atividades coletivas que unem motivação e resultado. Ritmo animado, instrutores preparados e o melhor ambiente para evoluir.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HORÁRIOS -->
+<section class="section schedule" id="horarios">
+  <div class="section-tag">Funcionamento</div>
+  <div class="section-title">NOSSOS HORÁRIOS</div>
+  <p class="section-subtitle">Abertos nos melhores horários para você nunca perder um treino.</p>
+  <div class="schedule-grid">
+    <div class="day-card">
+      <div class="day-name">Segunda a Sexta</div>
+      <div class="time-row"><span class="time-label">Manhã</span><span class="time-val">06h – 12h</span></div>
+      <div class="time-row"><span class="time-label">Tarde</span><span class="time-val">14h – 18h</span></div>
+      <div class="time-row"><span class="time-label">Noite</span><span class="time-val">18h – 22h</span></div>
+    </div>
+    <div class="day-card">
+      <div class="day-name">Sábado</div>
+      <!-- Horário ajustado para sábado: das 09h às 14h -->
+      <div class="time-row"><span class="time-label">Manhã</span><span class="time-val">09h – 14h</span></div>
+      <!-- Fechado após as 14h -->
+      <div class="time-row"><span class="time-label">Tarde</span><span class="time-val">Fechado</span></div>
+    </div>
+    <div class="day-card">
+      <div class="day-name">Domingo</div>
+      <!-- Domingos sem serviço -->
+      <div class="time-row"><span class="time-label">Manhã</span><span class="time-val">Fechado</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PLANOS -->
+<section class="section plans" id="planos">
+  <div class="section-tag">Investimento</div>
+  <div class="section-title">ESCOLHA SEU PLANO</div>
+  <p class="section-subtitle">Planos acessíveis para você começar agora e sem desculpas.</p>
+  <div class="plans-grid">
+    <div class="plan-card">
+      <div class="plan-name">Mensal</div>
+      <!-- Ajuste de preço: mensal agora custa R$100 -->
+      <div class="plan-price"><span>R$</span>100</div>
+      <div class="plan-period">por mês</div>
+      <ul class="plan-features">
+        <li>Acesso à musculação</li>
+        <li>Avaliação física inicial</li>
+        <li>Orientação de treino</li>
+      </ul>
+      <!-- O botão "Saiba mais" agora redireciona para o WhatsApp do atendimento (13 98873-3145) -->
+      <a href="https://wa.me/5513988733145" target="_blank" rel="noopener noreferrer" class="btn-plan btn-plan-outline">Saiba mais</a>
+    </div>
+    <div class="plan-card featured">
+      <div class="plan-badge">Mais popular</div>
+      <div class="plan-name">Trimestral</div>
+      <!-- Ajuste de preço: trimestral agora custa R$250 -->
+      <div class="plan-price"><span>R$</span>250</div>
+      <div class="plan-period">a cada 3 meses</div>
+      <ul class="plan-features">
+        <li>Musculação + Artes Marciais</li>
+        <li>Avaliação física completa</li>
+        <li>Treino personalizado</li>
+        <li>Aulas em grupo inclusas</li>
+      </ul>
+      <!-- O botão "Matricule-se" redireciona para o WhatsApp do atendimento principal (13 98873-3145) -->
+      <a href="https://wa.me/5513988733145" target="_blank" rel="noopener noreferrer" class="btn-plan btn-plan-primary">Matricule-se</a>
+    </div>
+    <div class="plan-card">
+      <div class="plan-name">Anual</div>
+      <div class="plan-price"><span>R$</span>799</div>
+      <div class="plan-period">por ano · economize 33%</div>
+      <ul class="plan-features">
+        <li>Acesso ilimitado a tudo</li>
+        <li>Personal trainer incluso</li>
+        <li>Prioridade em aulas</li>
+        <li>Acompanhamento nutricional</li>
+      </ul>
+      <!-- O botão "Saiba mais" do plano anual redireciona para outro número de atendimento (13 99203-1626) -->
+      <a href="https://wa.me/5513992031626" target="_blank" rel="noopener noreferrer" class="btn-plan btn-plan-outline">Saiba mais</a>
+    </div>
+  </div>
+</section>
+
+<!-- LOCALIZAÇÃO -->
+<section class="section location" id="localizacao">
+  <div class="section-tag">Onde estamos</div>
+  <div class="section-title">VENHA NOS VISITAR</div>
+  <div class="location-grid">
+    <div class="location-info">
+      <div class="info-item">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round">
+            <path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
+        <div class="info-text">
+          <strong>Endereço</strong>
+          <span>Santos, São Paulo – SP<br>Consulte o endereço completo por WhatsApp</span>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012.18 1h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 8.36a16 16 0 006.73 6.73l1.72-1.72a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+          </svg>
+        </div>
+      <div class="info-text">
+          <strong>WhatsApp</strong>
+          <!-- Número atualizado de WhatsApp conforme solicitado -->
+          <span>(13) 99203-1626</span>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round">
+            <rect x="2" y="2" width="20" height="20" rx="5"/>
+            <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+          </svg>
+        </div>
+        <div class="info-text">
+          <strong>Instagram</strong>
+          <span>@barreirateamfitness</span>
+        </div>
+      </div>
+    </div>
+    <div class="map-placeholder">
+      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5">
+        <path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/>
+        <circle cx="12" cy="10" r="3"/>
+      </svg>
+      <p>Santos – SP</p>
+      <a href="https://maps.google.com/?q=Santos+SP" target="_blank">Abrir no Google Maps →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">BARREIRA TEAM FITNESS</div>
+  <div class="footer-tagline">Santos • SP · Musculação & Artes Marciais</div>
+  <div class="footer-social">
+    <!-- Botão do Instagram agora redireciona para o perfil oficial da academia -->
+    <a href="https://instagram.com/barreirateamfitness" target="_blank" rel="noopener noreferrer" class="social-btn">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+    </a>
+    <!-- Botão de suporte, redirecionando para WhatsApp (13 98873-3145) -->
+    <a href="https://wa.me/5513988733145" target="_blank" rel="noopener noreferrer" class="social-btn">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+    </a>
+  </div>
+  <!-- Atualização do copyright para o ano de 2026 -->
+  <div class="footer-copy">© 2026 Barreira Team Fitness · Todos os direitos reservados</div>
+</footer>
+
+</body>
+</html>
